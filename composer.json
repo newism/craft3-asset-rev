@@ -1,0 +1,47 @@
+{
+    "name": "newism/craft3-asset-rev",
+    "description": "Rev asset urls with timestamps",
+    "type": "craft-plugin",
+    "version": "0.0.1",
+    "keywords": [
+        "craft",
+        "cms",
+        "craftcms",
+        "craft-plugin",
+        "nsm-asset-rev"
+    ],
+    "support": {
+        "docs": "https://github.com/newism/craft3-asset-rev/blob/master/README.md",
+        "issues": "https://github.com/newism/craft3-asset-rev/issues"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Newism",
+            "homepage": "http://newism.com.au"
+        }
+    ],
+    "require": {
+        "craftcms/cms": "~3.0.0-beta.1"
+    },
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "https://asset-packagist.org"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+          "newism\\assetrev\\": "src/"
+        }
+    },
+    "extra": {
+        "name": "NSM Asset Rev",
+        "handle": "nsmAssetRev",
+        "schemaVersion": "0.0.1",
+        "hasCpSettings": false,
+        "hasCpSection": false,
+        "changelogUrl": "https://raw.githubusercontent.com/newism/craft3-asset-rev/master/CHANGELOG.md",
+        "class": "newism\\assetrev\\NsmAssetRev"
+    }
+}
