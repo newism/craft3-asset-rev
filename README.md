@@ -6,12 +6,12 @@ function and pass the asset and an optional transform.
 Before:
 
     Template: {{ asset.url(transform) }}
-    Output: http://example.com/uploads/images/_572x430_crop_center-center_80/James-Ellis_elevation-render-1.jpg
+    Output: https://local.craft3/uploads/hqdefault.jpg
 
 After:
 
     Template: {{ nsm_rev_asset_url(asset, transform) }}
-    Output: http://example.com/uploads/images/_572x430_crop_center-center_80/James-Ellis_elevation-render-1.1485302752.jpg
+    Output: https://local.craft3/uploads/hqdefault.1496670969.jpg
 
 ## Installation
 
@@ -95,3 +95,5 @@ Some things to do, and ideas for potential features:
 ## Credits
 
 Brought to you by [Newism](http://newism.com.au)
+
+[<img src="http://newism.com.au/uploads/content/newism-logo.png" width="150px" />](http://newism.com.au/)
