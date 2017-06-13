@@ -137,7 +137,7 @@ See: https://github.com/h5bp/server-configs-nginx/blob/master/h5bp/location/cach
 
 ## Plugin Configuration
 
-See [./src/config.json](./src/config.json).
+See [./src/config.php](./src/config.php).
 
 ## Road Map
 
