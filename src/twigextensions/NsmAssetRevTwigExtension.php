@@ -11,6 +11,8 @@
 namespace newism\assetrev\twigextensions;
 
 use craft\elements\Asset;
+use craft\helpers\UrlHelper;
+use newism\assetrev\NsmAssetRev;
 
 /**
  * Twig can be extended in many ways; you can add extra tags, filters, tests, operators,
@@ -25,6 +27,13 @@ use craft\elements\Asset;
  */
 class NsmAssetRevTwigExtension extends \Twig_Extension
 {
+
+    /**
+     * @var array
+     */
+    static protected $manifest;
+
+
     // Public Methods
     // =========================================================================
 
@@ -48,12 +57,28 @@ class NsmAssetRevTwigExtension extends \Twig_Extension
     public function getFunctions(): array
     {
         return [
-            new \Twig_Function('nsm_rev_asset', [$this, 'revAsset']),
+            new \Twig_Function('nsm_rev_url', [$this, 'revUrl']),
             new \Twig_Function('nsm_rev_asset_url', [$this, 'revAssetUrl']),
+            new \Twig_Function('nsm_rev_manifest_url', [$this, 'revManifestUrl']),
         ];
     }
 
     /**
+     * Helper function that accepts either an Asset or url
+     *
+     * @return string
+     */
+    public function revUrl(): string
+    {
+        $args = func_get_args();
+        $method = ($args[0] instanceof Asset) ? 'revAssetUrl' : 'revManifestUrl';
+
+        return $this->$method(...$args);
+    }
+
+    /**
+     * Rev an asset url and optional transform
+     *
      * @param Asset $asset
      * @param null $transform
      * @return string
@@ -70,6 +95,39 @@ class NsmAssetRevTwigExtension extends \Twig_Extension
     }
 
     /**
+     * Rev a url checking the manifest
+     *
+     * @param $url
+     * @return string
+     */
+    public function revManifestUrl($url): string
+    {
+        $pluginSettings = NsmAssetRev::getInstance()->getSettings();
+        $manifestPath = $pluginSettings['manifestPath'];
+
+        if (null === self::$manifest) {
+            try {
+                self::$manifest = json_decode(
+                    file_get_contents($manifestPath),
+                    true
+                );
+            } catch (\Exception $exception) {
+                self::$manifest = [];
+            }
+        }
+
+        $url = array_key_exists($url, self::$manifest)
+                ? self::$manifest[$url]
+                : $url;
+
+        $url = $pluginSettings['assetUrlPrefix'].$url;
+
+        return UrlHelper::url($url);
+    }
+
+    /**
+     * Add a timestamp to a url
+     *
      * @param $timestamp
      * @param $url
      * @param $extension

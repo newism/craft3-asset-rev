@@ -10,6 +10,7 @@
 
 namespace newism\assetrev;
 
+use newism\assetrev\models\Settings;
 use newism\assetrev\twigextensions\NsmAssetRevTwigExtension;
 
 use Craft;
@@ -111,4 +112,8 @@ class NsmAssetRev extends Plugin
     // Protected Methods
     // =========================================================================
 
+    protected function createSettingsModel()
+    {
+        return new Settings();
+    }
 }
