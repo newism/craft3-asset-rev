@@ -1,17 +1,48 @@
 # NSM Asset Rev plugin for Craft CMS 3.x
 
-Rev asset urls with date modified timestamps. Its simple… just call the 
+## Asset Models
+
+Rev `Asset` model urls with date modified timestamps. Its simple… just call the 
 function and pass the asset and an optional transform.
 
 Before:
 
     Template: {{ asset.url(transform) }}
-    Output: https://local.craft3/uploads/hqdefault.jpg
+    Output: https://local.craft3/uploads/biggie.jpg
 
 After:
 
     Template: {{ nsm_rev_asset_url(asset, transform) }}
-    Output: https://local.craft3/uploads/hqdefault.1496670969.jpg
+    Output: https://local.craft3/uploads/biggie.1496670969.jpg
+
+## Manifest Files
+
+Additionally NSM Asset Rev can check a manifest file for urls and return the
+marching revved url.
+
+Manifest:
+
+    { "app.css": "app.1e9915c1398b2ba2fcc2.css" }
+
+Before:
+
+    Template: {{ url(app.css) }}
+    Output: https://local.craft3/app.css
+
+After:
+
+    Template: {{ nsm_rev_manifest_url('app.css') }}
+    Output: https://local.craft3/app.1e9915c1398b2ba2fcc2.css
+
+Manifest files will most likely be created from a build process. 
+
+Here's some examples:
+
+* [grunt-filerev-assets](https://github.com/richardbolt/grunt-filerev-assets)
+* [gulp-rev](https://github.com/sindresorhus/gulp-rev)
+* [webpack-manifest-plugin](https://github.com/danethurber/webpack-manifest-plugin)
+
+Note: NSM Asset Rev only supports one level key: value pairs. 
 
 ## Installation
 
@@ -34,9 +65,34 @@ Install plugin in the Craft Control Panel under Settings > Plugins.
 
 ## Usage
 
-This plugin provides a single twig function:
+### Twig template functions
+
+This plugin provides two twig functions.
+
+#### Asset Models
 
     {{ nsm_rev_asset_url(asset, transform) }}
+    
+#### Manifest Files
+
+    {{ nsm_rev_manifest_url(url) }}
+    
+#### Helper
+ 
+There's actually three twig functions :). The third is a helper that either calls
+`nsm_rev_asset_url` or `nsm_rev_manifest_url` based on the arguments.
+
+If the first argument is an `Assetl` then `nsm_rev_asset_url` will be called 
+internally:
+
+    Template: {{ nsm_rev_url(asset, transform) }}
+    Output: https://local.craft3/uploads/biggie.1496670969.jpg
+    
+If the first argument is an `string` model then `nsm_rev_manifest_url` will be called 
+internally:
+    
+    Template: {{ nsm_rev_url('app.css') }}
+    Output: https://local.craft3/app.1e9915c1398b2ba2fcc2.css
 
 ### Server Configuration
 
@@ -79,6 +135,10 @@ See: https://github.com/h5bp/server-configs-nginx/blob/master/h5bp/location/cach
       try_files $uri $1.$2;
     }
 
+## Plugin Configuration
+
+See [./src/config.json](./src/config.json).
+
 ## Road Map
 
 Some things to do, and ideas for potential features:
@@ -89,7 +149,7 @@ Some things to do, and ideas for potential features:
 
 ### Future
 
-* Add manfiest based revving
+* ~~[Add manfiest based revving](https://github.com/newism/craft3-asset-rev/issues/1)~~ 
 * Integrate other 3rd party image manipulation plugins as they become available
 
 ## Credits
