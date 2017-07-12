@@ -2,7 +2,7 @@
     "name": "newism/craft3-asset-rev",
     "description": "Rev asset urls with timestamps",
     "type": "craft-plugin",
-    "version": "0.0.2",
+    "version": "0.0.3",
     "keywords": [
         "craft",
         "cms",
@@ -22,7 +22,7 @@
         }
     ],
     "require": {
-        "craftcms/cms": "~3.0.0-beta.1"
+        "craftcms/cms": "~3.0.0-beta.20"
     },
     "repositories": [
         {
@@ -37,7 +37,7 @@
     },
     "extra": {
         "name": "NSM Asset Rev",
-        "handle": "nsmAssetRev",
+        "handle": "nsm-asset-rev",
         "schemaVersion": "0.0.1",
         "hasCpSettings": false,
         "hasCpSection": false,

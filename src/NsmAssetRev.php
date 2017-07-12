@@ -101,7 +101,7 @@ class NsmAssetRev extends Plugin
  */
         Craft::info(
             Craft::t(
-                'nsmassetrev',
+                'nsm-asset-rev',
                 '{name} plugin loaded',
                 ['name' => $this->name]
             ),
