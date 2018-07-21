@@ -68,7 +68,7 @@ class NsmAssetRev extends Plugin
         self::$plugin = $this;
 
         // Add in our Twig extensions
-        Craft::$app->view->twig->addExtension(new NsmAssetRevTwigExtension());
+        Craft::$app->view->registerTwigExtension(new NsmAssetRevTwigExtension());
 
         // Do something after we're installed
         Event::on(
